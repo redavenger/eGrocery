@@ -1,3 +1,4 @@
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,25 +52,34 @@ class HomePage extends StatelessWidget {
           },)
         ],
       ),
-     // bottomNavigationBar: CurvedNavigationBar(
-     //   color: Colors.green,
-     //   backgroundColor: Colors.white,
-     //   buttonBackgroundColor: Colors.green,
-     //   height: 60,
-     //   items: <Widget>[
-     //   Icon(Icons.local_fire_department_outlined,size:20,color:Colors.black),
-     //   Icon(Icons.search_outlined,size:20,color:Colors.black),
-     //   Icon(Icons.shopping_cart_outlined,size:20,color:Colors.black),
-     //   Icon(Icons.bookmark_outline_outlined,size:20,color:Colors.black),
-     //   Icon(Icons.perm_identity_outlined,size:20,color:Colors.black),
-     // ],
-     //   animationDuration: Duration(milliseconds: 200),
-     //   index: 0,
-     //   animationCurve: Curves.bounceInOut,
-     //   onTap: (index){
-     //    debugPrint("Current Index is $index");
-     //   },
-     // ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: SizedBox(
+                  height: 250.0,
+                  child: Carousel(
+                    images: [
+                      NetworkImage("https://static.vecteezy.com/system/resources/previews/000/154/102/original/supermarket-cart-vector.jpg"),
+                      NetworkImage("https://image.shutterstock.com/image-vector/promo-sale-flyer-groceries-grocery-260nw-1778803349.jpg"),
+                      NetworkImage("https://thumbs.dreamstime.com/z/grocery-shopping-promotional-sale-banner-grocery-shopping-promotional-sale-banner-fast-shopping-cart-full-fresh-colorful-food-168812706.jpg"),
+                    ],
+                    dotSize: 2,
+                    dotSpacing: 10,
+                    dotColor: Colors.green,
+                    indicatorBgPadding: 5.0,
+                    dotBgColor: Colors.transparent,
+                    dotIncreasedColor: Colors.pink,
+                  )
+                ),
+              ),
+            )
+          ],
+        )
+      ),
     );
   }
 
