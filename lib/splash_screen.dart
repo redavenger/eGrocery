@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_note/providers/user_auth_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -9,29 +11,30 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  String email;
+  // String email;
 
-  startTime() async{
+  startTime() async {
     var duration = Duration(seconds: 3);
     return Timer(duration, goToAnotherScreen);
   }
 
-  goToAnotherScreen(){
-    if (email.isEmpty){
+  goToAnotherScreen() {
+    if (Provider.of<UserAuthProvider>(context,listen:false).email.isEmpty) {
       Navigator.pushReplacementNamed(context, 'signin');
-    }else{
+    } else {
       Navigator.pushReplacementNamed(context, 'nav');
     }
   }
 
-  getEmail() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    email= prefs.getString('email')??'';
-  }
+  // getEmail() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   email = prefs.getString('email') ?? '';
+  // }
+
   @override
   void initState() {
     super.initState();
-    getEmail();
+    // getEmail();
     startTime();
   }
 

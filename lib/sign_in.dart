@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_note/sign_up.dart';
+import 'package:flutter_note/providers/user_auth_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'signup_screen.dart';
 import 'utils/constants.dart';
 import 'widgets/loading_indicator.dart';
 
@@ -19,6 +21,7 @@ class _SigninScreenState extends State<SigninScreen> {
 
   bool _obscurePassword = true;
   final _globalKeyScaffold = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +30,6 @@ class _SigninScreenState extends State<SigninScreen> {
       body: Opacity(
         opacity: 1,
         child: Container(
-
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/images/background2.jpg'),
@@ -48,13 +50,16 @@ class _SigninScreenState extends State<SigninScreen> {
                 TextFormField(
                   controller: passController,
                   decoration: InputDecoration(
-                    suffixIcon: IconButton(icon: _obscurePassword ?
-                    Icon(Icons.visibility)
-                        : Icon(Icons.visibility_off), onPressed: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
-                    },),
+                    suffixIcon: IconButton(
+                      icon: _obscurePassword
+                          ? Icon(Icons.visibility)
+                          : Icon(Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
                     labelText: 'Enter Your Password',
                   ),
                   obscureText: _obscurePassword,
@@ -68,10 +73,10 @@ class _SigninScreenState extends State<SigninScreen> {
                       email = mailController.text;
                       pass = passController.text;
 
-                      if (mailController.text.isEmpty || passController.text.isEmpty){
+                      if (mailController.text.isEmpty ||
+                          passController.text.isEmpty) {
                         showSnackBar("Fill All the details");
-                      }
-                      else{
+                      } else {
                         loginUser();
                       }
                     },
@@ -81,7 +86,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(100,40,100,00),
+                  padding: const EdgeInsets.fromLTRB(100, 40, 100, 00),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -90,13 +95,11 @@ class _SigninScreenState extends State<SigninScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(100,10,100,0),
+                  padding: const EdgeInsets.fromLTRB(100, 10, 100, 0),
                   child: FlatButton(
                     color: Colors.green,
                     textColor: Colors.white,
-                    onPressed: (
-                        ) {
-
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => SignUp()),
@@ -114,42 +117,43 @@ class _SigninScreenState extends State<SigninScreen> {
       ),
     );
   }
-  void loginUser() async{
+
+  void loginUser() async {
     onLoading(context);
     var url = '$LOGIN_URL?email=$email&password=$pass';
     var response = await http.get(url);
     Navigator.pop(context);
 
-    if (response.body.contains("Login")){
-      saveEmail();
+    if (response.body.contains("Login")) {
+      Provider.of<UserAuthProvider>(context,listen:false).saveEmail(email);
+      // saveEmail();
       // Navigator.push(
       //   context,
       //   MaterialPageRoute(builder: (context) => HomePage()),);
       Navigator.pushNamedAndRemoveUntil(context, 'nav', (route) => false);
-    }else{
+    } else {
       showSnackBar("Invalid Email or Password Please Try Again");
     }
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
   }
-  void saveEmail()async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('email', email);
-  }
 
-  void showSnackBar(String message){
+  // void saveEmail() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('email', email);
+  // }
+
+  void showSnackBar(String message) {
     final snackBar = SnackBar(
       duration: const Duration(seconds: 7),
       content: Text('$message'),
       action: SnackBarAction(
         label: 'Undo',
         onPressed: () {
-
           // Some code to undo the change.
         },
       ),
     );
-    _globalKeyScaffold.currentState.showSnackBar( snackBar);
-
+    _globalKeyScaffold.currentState.showSnackBar(snackBar);
   }
 }

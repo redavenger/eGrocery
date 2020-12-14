@@ -7,7 +7,6 @@ import 'package:flutter_note/search_page.dart';
 import 'package:flutter_note/whishlist_page.dart';
 
 class BottomNavigation extends StatefulWidget {
-
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
 }
@@ -15,7 +14,7 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 0;
 
-  final tabs=[
+  final tabs = [
     Center(child: HomePage()),
     Center(child: SearchPage()),
     Center(child: CartPage()),
@@ -33,16 +32,17 @@ class _BottomNavigationState extends State<BottomNavigation> {
         buttonBackgroundColor: Colors.green,
         height: 60,
         items: <Widget>[
-          Icon(Icons.local_fire_department_outlined,size:20,color:Colors.black),
-          Icon(Icons.search_outlined,size:20,color:Colors.black),
-          Icon(Icons.shopping_cart_outlined,size:20,color:Colors.black),
-          Icon(Icons.bookmark_outline_outlined,size:20,color:Colors.black),
-          Icon(Icons.perm_identity_outlined,size:20,color:Colors.black),
+          Icon(Icons.local_fire_department_outlined,
+              size: 20, color: Colors.black),
+          Icon(Icons.search_outlined, size: 20, color: Colors.black),
+          Icon(Icons.shopping_cart_outlined, size: 20, color: Colors.black),
+          Icon(Icons.bookmark_outline_outlined, size: 20, color: Colors.black),
+          Icon(Icons.perm_identity_outlined, size: 20, color: Colors.black),
         ],
         animationDuration: Duration(milliseconds: 200),
         index: _currentIndex,
         animationCurve: Curves.bounceInOut,
-        onTap: (index){
+        onTap: (index) {
           onTabTapped(index);
         },
       ),
