@@ -14,8 +14,11 @@ class CategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CachedNetworkImage(imageUrl: eCategory.image, height: 100,),
-        Text(eCategory.name),
+        CachedNetworkImage(imageUrl: eCategory.image, height: 70,),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Text(eCategory.name),
+        ),
       ],
     );
   }

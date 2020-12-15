@@ -83,11 +83,12 @@ class HomePage extends StatelessWidget {
               children: [
                 Text(
                   'CATEGORIES',
-                  style: TextStyle(fontSize: 30),
+                  style: TextStyle(fontSize: 20),
                 ),
-                FlatButton.icon(
-
-                )
+                // FlatButton.icon(
+                //
+                //
+                // )
               ],
             ),
           ),

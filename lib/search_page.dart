@@ -1,68 +1,46 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-class SearchPage extends StatefulWidget {
-  @override
-  _SearchPageState createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
-  bool _folded = true;
-
+class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(top: 0, start: 1, end: 15, bottom: 600),
-      child: AnimatedContainer(
-        duration: Duration(milliseconds: 400),
-        width: _folded ? 56 : 350,
-        height: 56,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: Colors.green,
-          boxShadow: kElevationToShadow[6],
+    return Scaffold(
+      body: Opacity(
+        opacity: 1,
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/search.png'),
+            ),
+          ),
         ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.only(left: 16),
-                child: !_folded
-                    ? TextField(
-                  decoration: InputDecoration(
-                      hintText: 'Search',
-                      hintStyle: TextStyle(color: Colors.black),
-                      border: InputBorder.none),
-                )
-                    : null,
+      ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.0), // here the desired height
+        child: AppBar(
+          backgroundColor: Colors.green,
+          title: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Search',
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.black,
+                    )),
               ),
             ),
-            Container(
-              child: Material(
-                type: MaterialType.transparency,
-                child: InkWell(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(_folded ? 32 : 0),
-                    topRight: Radius.circular(32),
-                    bottomLeft: Radius.circular(_folded ? 32 : 0),
-                    bottomRight: Radius.circular(32),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Icon(
-                      _folded ? Icons.search : Icons.close,
-                      color: Colors.black,
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      _folded = !_folded;
-                    });
-                  },
-                ),
-              ),
-            )
-          ],
+          ),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20),
+          )),
         ),
       ),
     );
