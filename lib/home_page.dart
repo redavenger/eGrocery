@@ -40,12 +40,12 @@ class HomePage extends StatelessWidget {
               ListTile(
                 title: Text('Logout'),
                 onTap: () {
-                  Provider.of<UserAuthProvider>(context, listen: false)
-                      .saveEmail('');
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, 'signin', (route) => false);
-                },
-              )
+                        Provider.of<UserAuthProvider>(context, listen: false)
+                            .saveEmail('');
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, 'signin', (route) => false);
+                      },
+                    )
             ]),
       ),
       backgroundColor: Colors.white,
@@ -78,7 +78,7 @@ class HomePage extends StatelessWidget {
         children: [
           ImageSlider(),
           Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               children: [
                 Text(
@@ -96,7 +96,7 @@ class HomePage extends StatelessWidget {
             shrinkWrap: true,
             // Create a grid with 2 columns. If you change the scrollDirection to
             // horizontal, this produces 2 rows.
-            crossAxisCount: 2,
+            crossAxisCount: 3,
             physics: NeverScrollableScrollPhysics(),
             // Generate 100 widgets that display their index in the List.
             children: List.generate(ecategoryList.length, (index) {

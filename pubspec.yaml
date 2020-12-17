@@ -55,6 +55,7 @@ flutter:
     - assets/images/background2.jpg
     - assets/images/logo.png
     - assets/images/search.png
+    - assets/images/profile.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
