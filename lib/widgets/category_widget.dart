@@ -14,11 +14,10 @@ class CategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CachedNetworkImage(imageUrl: eCategory.image, height: 70,),
-        Padding(
-          padding: const EdgeInsets.all(9.0),
-          child: Text(eCategory.name),
-        ),
+        Container(
+            child: CircleAvatar(radius: 32, backgroundColor: Colors.lightGreen,
+              child: CachedNetworkImage(imageUrl: eCategory.image, height: 32,),)),
+        Center(child: Text(eCategory.name),),
       ],
     );
   }

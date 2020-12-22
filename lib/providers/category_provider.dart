@@ -11,6 +11,7 @@ class CategoryProvider extends ChangeNotifier {
   List<ECategory> ecategoryList = [];
 
   void fetchCategory() async {
+    ecategoryList = [];
     var url = '$READ_CATEGORY_URL';
     var response = await http.get(url);
      var result = jsonDecode(response.body);

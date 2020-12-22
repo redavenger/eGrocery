@@ -63,6 +63,15 @@ class ProfilePage extends StatelessWidget {
               ),
               SizedBox(height: 20,),
               Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                        ),
+                    ),
                 child: ListTile(
                   leading: Icon(
                     Icons.star_border,
@@ -78,6 +87,15 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                  ),
+                ),
                 child: ListTile(
                   leading: Icon(
                     Icons.settings_outlined,
@@ -94,6 +112,15 @@ class ProfilePage extends StatelessWidget {
 
               ),
               Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                  ),
+                ),
                 child: ListTile(
                   leading: Icon(
                     Icons.login_outlined,

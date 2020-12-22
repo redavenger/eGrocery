@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_note/model/ecategory.dart';
 import 'package:flutter_note/providers/category_provider.dart';
-import 'package:flutter_note/providers/user_auth_provider.dart';
 import 'package:flutter_note/widgets/category_widget.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
 
 import 'image_slider.dart';
@@ -13,41 +13,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ecategoryList =
-        Provider.of<CategoryProvider>(context, listen: false).ecategoryList;
+        Provider.of<CategoryProvider>(context, listen: true).ecategoryList;
 
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-            // Important: Remove any padding from the ListView.
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              Container(
-                height: 88,
-                child: DrawerHeader(
-                  child: FlatButton(
-                    color: Colors.green,
-                    textColor: Colors.black,
-                    onPressed: () {},
-                    child: Text(
-                      "ABOUT US",
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                  ),
-                ),
-              ),
-              ListTile(
-                title: Text('Logout'),
-                onTap: () {
-                        Provider.of<UserAuthProvider>(context, listen: false)
-                            .saveEmail('');
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, 'signin', (route) => false);
-                      },
-                    )
-            ]),
-      ),
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -72,39 +40,48 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-          child: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ImageSlider(),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              children: [
-                Text(
-                  'CATEGORIES',
-                  style: TextStyle(fontSize: 20),
-                ),
-                // FlatButton.icon(
-                //
-                //
-                // )
-              ],
+        child: new Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      'CATEGORIES',
+                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          GridView.count(
-            shrinkWrap: true,
-            // Create a grid with 2 columns. If you change the scrollDirection to
-            // horizontal, this produces 2 rows.
-            crossAxisCount: 3,
-            physics: NeverScrollableScrollPhysics(),
-            // Generate 100 widgets that display their index in the List.
-            children: List.generate(ecategoryList.length, (index) {
-              return CategoryWidget(ecategoryList[index]);
-            }),
-          ),
-        ],
-      )),
+            categoryListWidget(),
+
+            Container(
+              height: 250,
+              child: ImageSlider(),),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget categoryListWidget() {
+    return Container(
+      height: 100,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: ecategoryList.length,
+        scrollDirection: Axis.horizontal,
+        // physics: NeverScrollableScrollPhysics(),
+        itemBuilder: (BuildContext ctxt, int index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CategoryWidget(ecategoryList[index]),
+          );
+        },
+      ),
     );
   }
 }
