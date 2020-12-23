@@ -84,6 +84,7 @@ class ProfilePage extends StatelessWidget {
                   title: Text(
                     "My order",
                   ),
+                    onTap:() {Navigator.pushNamed(context, 'order');}
                 ),
               ),
               Card(
@@ -108,6 +109,7 @@ class ProfilePage extends StatelessWidget {
                   title: Text(
                     "My settings",
                   ),
+                  onTap:() {Navigator.pushNamed(context, 'setting');}
                 ),
 
               ),

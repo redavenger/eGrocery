@@ -57,7 +57,6 @@ class HomePage extends StatelessWidget {
               ),
             ),
             categoryListWidget(),
-
             Container(
               height: 250,
               child: ImageSlider(),),

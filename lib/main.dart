@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_note/category_detail.dart';
 import 'package:flutter_note/providers/category_provider.dart';
 import 'package:flutter_note/providers/user_auth_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'bottom_navigation_bar.dart';
 import 'home_page.dart';
+import 'my_order.dart';
+import 'my_setting.dart';
 import 'sign_in.dart';
 import 'signup_screen.dart';
 import 'splash_screen.dart';
@@ -34,8 +37,9 @@ class MyApp extends StatelessWidget {
         'splash': (BuildContext context) => SplashScreen(),
         'nav': (BuildContext context) => BottomNavigation(),
         'slider': (BuildContext context) => ImageSlider(),
-
-
+        'order': (BuildContext context) => MyOrder(),
+        'setting': (BuildContext context) => MySetting(),
+        // 'detail': (BuildContext context) => CategoryDetail(),
         // 'addnote': (BuildContext context)=> AddNoteScreen(),
       },
       initialRoute: 'splash',
