@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_note/model/ecategory.dart';
 import 'package:flutter_note/providers/category_provider.dart';
 import 'package:flutter_note/widgets/category_widget.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
 
-import 'image_slider.dart';
+import 'model/product.dart';
+import 'product_detail_screen.dart';
+import 'providers/product_provider.dart';
+import 'widgets/product_widget.dart';
 
 class HomePage extends StatelessWidget {
   List<ECategory> ecategoryList = [];
+  List<Product> productList = [];
 
   @override
   Widget build(BuildContext context) {
     ecategoryList =
         Provider.of<CategoryProvider>(context, listen: true).ecategoryList;
+
+    productList = Provider.of<ProductProvider>(context).productList;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -40,7 +45,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: new Column(
+        child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(0.0),
@@ -50,18 +55,58 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(15.0),
                     child: Text(
                       'CATEGORIES',
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
               ),
             ),
             categoryListWidget(),
-            Container(
-              height: 250,
-              child: ImageSlider(),),
+            // Container(
+            //   height: 250,
+            //   child: ImageSlider(),),
+            Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      'PRODUCTS',
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+              productListWidget(),
+            // ProductListPage(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget productListWidget(){
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: productList.length,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) => ProductWidget(
+        itemIndex: index,
+        product: productList[index],
+        press: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetailScreen(
+                product: productList[index],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
