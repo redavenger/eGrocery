@@ -95,7 +95,7 @@ class ProductWidget extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        "\$${product.price}",
+                        "\RS ${product.price}",
                         style: Theme.of(context).textTheme.button,
                       ),
                     ),

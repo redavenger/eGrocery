@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import 'cart_button.dart';
 import 'model/product.dart';
 import 'utils/constants.dart';
 
@@ -15,64 +17,66 @@ class ProductDetailScreen extends StatelessWidget {
     // it provide us total height and width
     Size size = MediaQuery.of(context).size;
     // it enable scrolling on small devices
-    return SafeArea(
-      bottom: false,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              decoration: BoxDecoration(
-                color: kBackgroundColor,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
+    return Scaffold(
+      body: SafeArea(
+        bottom: false,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                decoration: BoxDecoration(
+                  color: kBackgroundColor,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50),
+                  ),
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Center(
-                    child: Hero(
-                      tag: '${product.id}',
-                      child: ProductPoster(
-                        size: size,
-                        image: product.image,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Center(
+                      child: Hero(
+                        tag: '${product.id}',
+                        child: CachedNetworkImage(
+                          imageUrl: product.image,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: kDefaultPadding / 2),
-                    child: Text(
-                      product.name,
-                      style: Theme.of(context).textTheme.headline6,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: kDefaultPadding / 2),
+                      child: Text(
+                        product.name,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
                     ),
-                  ),
-                  Text(
-                    '\$${product.price}',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: kSecondaryColor,
+                    Text(
+                      '\RS ${product.price}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: kSecondaryColor,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding:
-                    EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
-                    child: Text(
-                      product.description,
-                      style: TextStyle(color: kTextLightColor),
+                    Padding(
+                      padding:
+                      EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
+                      child: Text(
+                        product.description,
+                        style: TextStyle(color: kTextLightColor),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: kDefaultPadding),
-                ],
+                    SizedBox(height: kDefaultPadding),
+                  ],
+                ),
               ),
-            ),
-            // ChatAndAddToCart(),
-          ],
+              CartButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -93,29 +97,31 @@ class ProductPoster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: kDefaultPadding),
-      // the height of this container is 80% of our width
-      height: size.width * 0.8,
+    return Scaffold(
+      body: Container(
+        margin: EdgeInsets.symmetric(vertical: kDefaultPadding),
+        // the height of this container is 80% of our width
+        height: size.width * 0.8,
 
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: <Widget>[
-          Container(
-            height: size.width * 0.7,
-            width: size.width * 0.7,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: <Widget>[
+            Container(
+              height: size.width * 0.7,
+              width: size.width * 0.7,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
             ),
-          ),
-          Image.asset(
-            image,
-            height: size.width * 0.75,
-            width: size.width * 0.75,
-            fit: BoxFit.cover,
-          ),
-        ],
+            Image.asset(
+              image,
+              height: size.width * 0.75,
+              width: size.width * 0.75,
+              fit: BoxFit.cover,
+            ),
+          ],
+        ),
       ),
     );
   }
