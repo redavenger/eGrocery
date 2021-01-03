@@ -1,19 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_note/providers/product_provider.dart';
+import 'package:provider/provider.dart';
 
-class SearchPage extends StatelessWidget {
+import 'model/product.dart';
+import 'product_detail_screen.dart';
+import 'widgets/product_widget.dart';
+
+class SearchPage extends StatefulWidget {
+
+  @override
+  _SearchPageState createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  List<Product> productList = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Opacity(
-        opacity: 1,
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/search.png'),
-            ),
-          ),
-        ),
+      body: SingleChildScrollView(
+        child: productListWidget(),
       ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0), // here the desired height
@@ -27,6 +34,12 @@ class SearchPage extends StatelessWidget {
                 color: Colors.white,
               ),
               child: TextField(
+                autofocus: true,
+                onChanged: (value){
+                  setState(() {
+                    productList = Provider.of<ProductProvider>(context, listen: false).filterProductList(value);
+                  });
+                },
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Search',
@@ -42,6 +55,28 @@ class SearchPage extends StatelessWidget {
             bottom: Radius.circular(20),
           )),
         ),
+      ),
+    );
+  }
+
+  Widget productListWidget(){
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: productList.length,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) => ProductWidget(
+        itemIndex: index,
+        product: productList[index],
+        press: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetailScreen(
+                product: productList[index],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

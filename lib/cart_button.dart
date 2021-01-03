@@ -7,7 +7,7 @@ class CartButton extends StatelessWidget {
     return Container(margin: EdgeInsets.all(kDefaultPadding),
       padding: EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
-        vertical: kDefaultPadding / 2,
+        vertical: kDefaultPadding / 5,
       ),
       decoration: BoxDecoration(
         color: Colors.orange,

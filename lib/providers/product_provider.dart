@@ -24,4 +24,15 @@ class ProductProvider extends ChangeNotifier {
      notifyListeners();
   }
 
+  List<Product> filterProductList(String query){
+    List<Product> filteredProductList = [];
+    productList.forEach((product) {
+      if (product.name.toLowerCase().contains(query.toLowerCase())){
+        filteredProductList.add(product);
+      }
+    });
+
+    return filteredProductList;
+  }
+
 }

@@ -18,6 +18,7 @@ class ProductDetailScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     // it enable scrolling on small devices
     return Scaffold(
+      backgroundColor: Colors.green,
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
@@ -28,7 +29,7 @@ class ProductDetailScreen extends StatelessWidget {
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
                 decoration: BoxDecoration(
-                  color: kBackgroundColor,
+                  color: Colors.white,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(50),
                     bottomRight: Radius.circular(50),
@@ -74,7 +75,8 @@ class ProductDetailScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              CartButton(),
+              CartButton(
+              ),
             ],
           ),
         ),
