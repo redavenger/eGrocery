@@ -50,18 +50,55 @@ class ProductDetailScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: kDefaultPadding / 2),
-                      child: Text(
-                        product.name,
-                        style: Theme.of(context).textTheme.headline6,
+                      child: Row(
+                        children: [
+                          Text(
+                            product.name,
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 140),
+                            child: Icon(
+                              Icons.bookmark_outline_outlined,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Text(
-                      '\RS ${product.price}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: kSecondaryColor,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          '\RS ${product.price}',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: kSecondaryColor,
+                          ),
+                        ),
+                        Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Icon(
+                            Icons.remove,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            '10',
+                            style: TextStyle(fontSize: 20, color: Colors.black),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding:

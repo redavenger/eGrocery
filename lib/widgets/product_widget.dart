@@ -82,22 +82,42 @@ class ProductWidget extends StatelessWidget {
                     ),
                     // it use the available space
                     Spacer(),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: kDefaultPadding * 1.5, // 30 padding
-                        vertical: kDefaultPadding / 4, // 5 top and bottom
-                      ),
-                      decoration: BoxDecoration(
-                        color: kSecondaryColor,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(22),
-                          topRight: Radius.circular(22),
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: kDefaultPadding * 1.5, // 30 padding
+                            vertical: kDefaultPadding / 4, // 5 top and bottom
+                          ),
+                          decoration: BoxDecoration(
+                            color: kSecondaryColor,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(22),
+                              topRight: Radius.circular(22),
+                            ),
+                          ),
+                          child: Text(
+                            "\RS ${product.price}",
+                            style: Theme.of(context).textTheme.button,
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        "\RS ${product.price}",
-                        style: Theme.of(context).textTheme.button,
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.lightGreenAccent,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(22),
+                                topRight: Radius.circular(22),
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.shopping_cart_outlined,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
