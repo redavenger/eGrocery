@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_note/model/product.dart';
+import 'package:flutter_note/providers/product_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'model/ecategory.dart';
+import 'product_detail_screen.dart';
+import 'widgets/product_widget.dart';
 
 class CategoryDetail extends StatefulWidget {
 
@@ -14,9 +19,12 @@ class CategoryDetail extends StatefulWidget {
 
 class _CategoryDetailState extends State<CategoryDetail> {
 
+  List<Product> productList = [];
+
 
   @override
   Widget build(BuildContext context) {
+    productList = Provider.of<ProductProvider>(context, listen: false).filterProductByCategory(widget.eCategory.cName);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -29,11 +37,29 @@ class _CategoryDetailState extends State<CategoryDetail> {
               bottom: Radius.circular(20),
             )),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('This is my category detail page'),
-        ],
+      body: productListWidget(),
+    );
+  }
+
+
+  Widget productListWidget(){
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: productList.length,
+      // physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) => ProductWidget(
+        itemIndex: index,
+        product: productList[index],
+        press: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetailScreen(
+                product: productList[index],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
