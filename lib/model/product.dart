@@ -4,7 +4,7 @@ class Product {
   String price;
   String stock;
   String description;
-  String category;
+  String cName;
   String image;
 
   Product(
@@ -13,7 +13,7 @@ class Product {
         this.price,
         this.stock,
         this.description,
-        this.category,
+        this.cName,
         this.image});
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -22,7 +22,7 @@ class Product {
     price = json['price'];
     stock = json['stock'];
     description = json['description'];
-    category = json['category'];
+    cName = json['cname'];
     image = json['image'];
   }
 
@@ -33,7 +33,7 @@ class Product {
     data['price'] = this.price;
     data['stock'] = this.stock;
     data['description'] = this.description;
-    data['category'] = this.category;
+    data['cname'] = this.cName;
     data['image'] = this.image;
     return data;
   }

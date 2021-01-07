@@ -24,7 +24,7 @@ class CategoryWidget extends StatelessWidget {
           Container(
               child: CircleAvatar(radius: 32, backgroundColor: Colors.black12,
                 child: CachedNetworkImage(imageUrl: eCategory.image, height: 32,),)),
-          Center(child: Text(eCategory.name),),
+          Center(child: Text(eCategory.cName),),
         ],
       ),
     );

@@ -1,20 +1,20 @@
 class ECategory {
   String id;
-  String name;
+  String cName;
   String image;
 
-  ECategory({this.id, this.name, this.image});
+  ECategory({this.id, this.cName, this.image});
 
   ECategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
+    cName = json['cname'];
     image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['name'] = this.name;
+    data['cname'] = this.cName;
     data['image'] = this.image;
     return data;
   }

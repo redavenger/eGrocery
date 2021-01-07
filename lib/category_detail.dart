@@ -21,7 +21,7 @@ class _CategoryDetailState extends State<CategoryDetail> {
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: Text(
-          widget.eCategory.name,
+          widget.eCategory.cName,
           style: TextStyle(fontSize: 20, color: Colors.black),
         ),
         shape: RoundedRectangleBorder(

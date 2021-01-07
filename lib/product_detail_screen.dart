@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -5,12 +6,19 @@ import 'cart_button.dart';
 import 'model/product.dart';
 import 'utils/constants.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends StatefulWidget {
 
   Product product;
 
 
   ProductDetailScreen({this.product});
+
+  @override
+  _ProductDetailScreenState createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  int count=1;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +27,17 @@ class ProductDetailScreen extends StatelessWidget {
     // it enable scrolling on small devices
     return Scaffold(
       backgroundColor: Colors.green,
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: Text(
+          'Product Details',
+          style: TextStyle(fontSize: 20, color: Colors.black),
+        ),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(20),
+            )),
+      ),
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
@@ -40,9 +59,9 @@ class ProductDetailScreen extends StatelessWidget {
                   children: <Widget>[
                     Center(
                       child: Hero(
-                        tag: '${product.id}',
+                        tag: '${widget.product.id}',
                         child: CachedNetworkImage(
-                          imageUrl: product.image,
+                          imageUrl: widget.product.image,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -52,10 +71,18 @@ class ProductDetailScreen extends StatelessWidget {
                           vertical: kDefaultPadding / 2),
                       child: Row(
                         children: [
-                          Text(
-                            product.name,
-                            style: Theme.of(context).textTheme.headline6,
+                          Container(
+                            width: 170,
+                            child: AutoSizeText(
+                              widget.product.name,
+                              style: Theme.of(context).textTheme.headline6,
+                              maxLines: 5,
+                            ),
                           ),
+                          // Text(
+                          //   widget.product.name,
+                          //   style: Theme.of(context).textTheme.headline6,
+                          // ),
                           Padding(
                             padding: const EdgeInsets.only(left: 140),
                             child: Icon(
@@ -69,7 +96,7 @@ class ProductDetailScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '\RS ${product.price}',
+                          '\RS ${widget.product.price}',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -79,23 +106,39 @@ class ProductDetailScreen extends StatelessWidget {
                         Spacer(),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Icon(
+                          child: IconButton(icon: Icon(
                             Icons.remove,
                             color: Colors.black,
                           ),
+                            onPressed: (){
+                            if (count>1){
+                              setState(() {
+                                count= count-1;
+                              });
+                            }
+                            },
+                        ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Text(
-                            '10',
+                            '$count',
                             style: TextStyle(fontSize: 20, color: Colors.black),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Icon(
+                          child: IconButton(icon: Icon(
                             Icons.add,
                             color: Colors.black,
+                          ),
+                            onPressed: (){
+                              if (count<50){
+                                setState(() {
+                                  count= count+1;
+                                });
+                              }
+                            },
                           ),
                         ),
                       ],
@@ -104,7 +147,7 @@ class ProductDetailScreen extends StatelessWidget {
                       padding:
                       EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
                       child: Text(
-                        product.description,
+                        widget.product.description,
                         style: TextStyle(color: kTextLightColor),
                       ),
                     ),
