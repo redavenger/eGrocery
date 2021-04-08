@@ -37,6 +37,7 @@ dependencies:
   cached_network_image: ^2.4.1
   flutter_swiper: ^1.1.6
   auto_size_text: ^2.1.0
+  url_launcher:
 
 
 dev_dependencies:
@@ -59,6 +60,7 @@ flutter:
     - assets/images/logo.png
     - assets/images/search.png
     - assets/images/profile.jpg
+    - assets/images/hulas.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

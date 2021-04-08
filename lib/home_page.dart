@@ -3,6 +3,7 @@ import 'package:flutter_note/model/ecategory.dart';
 import 'package:flutter_note/providers/category_provider.dart';
 import 'package:flutter_note/widgets/category_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'model/product.dart';
 import 'product_detail_screen.dart';
@@ -39,7 +40,7 @@ class HomePage extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {
-              print('Button clicked');
+              launch("tel:061521294");
             },
           )
         ],
