@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_note/utils/constants.dart';
+import 'package:toast/toast.dart';
 
 class CartButton extends StatelessWidget {
   @override
@@ -17,7 +18,8 @@ class CartButton extends StatelessWidget {
         children: <Widget>[
           FlatButton.icon(
             onPressed: () {
-
+              Toast.show("Your item has been added to cart successfully!", context,backgroundColor: Colors.orangeAccent,
+                  textColor: Colors.black, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
             },
             icon: Icon(Icons.shopping_bag_outlined, color: Colors.white,),
             label: Text(

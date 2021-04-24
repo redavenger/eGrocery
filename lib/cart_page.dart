@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: Text(
@@ -16,6 +18,7 @@ class CartPage extends StatelessWidget {
           bottom: Radius.circular(20),
         )),
       ),
+
       body: Padding(
         padding: const EdgeInsets.only(left:8.0,right: 8.0, top: 15, bottom: 8),
         child: Column(
@@ -25,7 +28,7 @@ class CartPage extends StatelessWidget {
             Container(
             decoration: BoxDecoration(
               borderRadius: new BorderRadius.circular(10),
-              color: Colors.orangeAccent,
+              color: Colors.lightGreen,
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,11 +75,113 @@ class CartPage extends StatelessWidget {
                     ],
                   ),
                 )
-
               ],
             ),
               ),
-            SizedBox(height: 475,),
+            Padding(
+              padding: const EdgeInsets.only(top:10),
+              child: Container(
+              decoration: BoxDecoration(
+                borderRadius: new BorderRadius.circular(10),
+                color: Colors.lightGreen,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 150,
+                    width: 150,
+                    child: Image(
+                      image: AssetImage('assets/images/MAMYPOKO.jpg'
+                      ),
+                    ),
+                  ), Padding(
+                    padding: const EdgeInsets.only(top:25.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("MAMY POKO PANTS S 08'S", style:TextStyle(fontWeight: FontWeight.bold, fontSize: 15) ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(top:15),
+                          child: Text("Quantity : 1", style:TextStyle( fontSize: 15)),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(top:30),
+                          child: Row(
+
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Rs. 150", style:TextStyle( fontSize: 25)),
+                              SizedBox(width: 99,),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.delete_outline,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {
+                                  print('delete');
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+                ),
+            ),
+            SizedBox(height: 125,),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: new BorderRadius.circular(10),
+                color: Colors.black12,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Billing Details:",style:TextStyle( fontSize: 25,fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Order:',style:TextStyle( fontSize: 25)),
+                      Text('Rs. 3150',style:TextStyle( fontSize: 25,fontWeight: FontWeight.bold))
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Shipping:',style:TextStyle( fontSize: 25)),
+                      Text('Rs. 100',style:TextStyle( fontSize: 25,fontWeight: FontWeight.bold))
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('TOTAL:',style:TextStyle( fontSize: 25)),
+                      Text('Rs. 3250',style:TextStyle( fontSize: 25,fontWeight: FontWeight.bold))
+                    ],
+                  ),
+                ),
+
+              ],
+            ),),
+            SizedBox(height: 25,),
             Container(
               decoration: BoxDecoration(
                 color: Colors.orangeAccent,
@@ -84,11 +189,10 @@ class CartPage extends StatelessWidget {
               ),
               height: 50,
               width: 390,
-
-
               child: FlatButton(
                 child: Text("Place Order",style:TextStyle(color:Colors.black,fontWeight: FontWeight.bold, fontSize: 25)),
-              ),
+                onPressed:(){Toast.show("Order Placed Successfully!", context,backgroundColor: Colors.orangeAccent,
+                    textColor: Colors.black, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);} ,),
             )
           ],
         ),

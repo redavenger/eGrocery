@@ -87,7 +87,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             padding: const EdgeInsets.only(left: 140),
                             child: Icon(
                               Icons.bookmark_outline_outlined,
-                              color: Colors.black,
+                              color: Colors.orangeAccent,
                             ),
                           ),
                         ],
@@ -155,8 +155,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ],
                 ),
               ),
-              CartButton(
-              ),
+              CartButton(),
             ],
           ),
         ),

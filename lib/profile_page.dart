@@ -142,7 +142,6 @@ class ProfilePage extends StatelessWidget {
                         context, 'signin', (route) => false);
                   },
                 ),
-
               )
             ],
           ),
