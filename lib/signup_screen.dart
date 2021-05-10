@@ -35,7 +35,7 @@ class _SignUpState extends State<SignUp> {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/background2.jpg'),
+              image: AssetImage('assets/images/background3.jpg'),
               fit: BoxFit.cover,
             ),
           ),
@@ -45,45 +45,68 @@ class _SignUpState extends State<SignUp> {
               shrinkWrap: true,
               children: [
                 TextField(
+                  cursorColor: Colors.grey,
                   controller: unameController,
                   decoration: InputDecoration(
                     labelText: 'Enter your username',
+                    labelStyle: TextStyle(color: Colors.grey),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
                   ),
                 ),
                 TextFormField(
+                  cursorColor: Colors.grey,
                   controller: emailController,
-                  decoration: InputDecoration(labelText: 'Enter your email'),
+                  decoration: InputDecoration(labelText: 'Enter your email',
+                    labelStyle: TextStyle(color: Colors.grey),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                  ),
                 ),
                 TextFormField(
+                  cursorColor: Colors.grey,
                   controller: passController,
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
                         icon: _obscurePassword
-                            ? Icon(Icons.visibility)
-                            : Icon(Icons.visibility_off),
+                            ? Icon(Icons.visibility, color: Colors.grey,)
+                            : Icon(Icons.visibility_off, color: Colors.grey,),
                         onPressed: () {
                           setState(() {
                             _obscurePassword = !_obscurePassword;
                           });
                         },
                       ),
-                      labelText: 'Enter your Password'),
+                      labelText: 'Enter your Password',
+                    labelStyle: TextStyle(color: Colors.grey),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                  ),
                   obscureText: _obscurePassword,
                 ),
                 TextFormField(
+                  cursorColor: Colors.grey,
                   controller: cpassController,
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
                         icon: _obscureConPassword
-                            ? Icon(Icons.visibility)
-                            : Icon(Icons.visibility_off),
+                            ? Icon(Icons.visibility, color: Colors.grey,)
+                            : Icon(Icons.visibility_off, color: Colors.grey,),
                         onPressed: () {
                           setState(() {
                             _obscureConPassword = !_obscureConPassword;
                           });
                         },
                       ),
-                      labelText: 'Enter your Confirm Password'),
+                      labelText: 'Enter your Confirm Password',
+                    labelStyle: TextStyle(color: Colors.grey),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                  ),
                   obscureText: _obscureConPassword,
                 ),
                 Padding(
@@ -143,13 +166,13 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('Button clicked');
-        },
-        child: Icon(Icons.add_ic_call_sharp),
-        backgroundColor: Colors.green,
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     print('Button clicked');
+      //   },
+      //   child: Icon(Icons.add_ic_call_sharp),
+      //   backgroundColor: Colors.green,
+      // ),
     );
   }
 

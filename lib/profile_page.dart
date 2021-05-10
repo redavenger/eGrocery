@@ -65,31 +65,6 @@ class ProfilePage extends StatelessWidget {
               Card(
                 elevation: 10,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
-                        topLeft: Radius.circular(20),
-                        ),
-                    ),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.star_border,
-                    color: Colors.green,
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.green,
-                  ),
-                  title: Text(
-                    "My order",
-                  ),
-                    onTap:() {Navigator.pushNamed(context, 'order');}
-                ),
-              ),
-              Card(
-                elevation: 10,
-                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(20),
                     topRight: Radius.circular(20),
@@ -107,11 +82,36 @@ class ProfilePage extends StatelessWidget {
                     color: Colors.green,
                   ),
                   title: Text(
-                    "My settings",
+                    "Edit Profile",
                   ),
                   onTap:() {Navigator.pushNamed(context, 'setting');}
                 ),
 
+              ),
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                  ),
+                ),
+                child: ListTile(
+                    leading: Icon(
+                      Icons.star_border,
+                      color: Colors.green,
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.green,
+                    ),
+                    title: Text(
+                      "My order",
+                    ),
+                    onTap:() {Navigator.pushNamed(context, 'order');}
+                ),
               ),
               Card(
                 elevation: 10,

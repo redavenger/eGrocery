@@ -32,7 +32,7 @@ class _SigninScreenState extends State<SigninScreen> {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/background2.jpg'),
+              image: AssetImage('assets/images/background3.jpg'),
               fit: BoxFit.cover,
             ),
           ),
@@ -42,18 +42,25 @@ class _SigninScreenState extends State<SigninScreen> {
               shrinkWrap: true,
               children: [
                 TextFormField(
+                  cursorColor: Colors.grey,
                   controller: mailController,
                   decoration: InputDecoration(
                     labelText: 'Enter Your Email',
+                      labelStyle: TextStyle(color: Colors.grey),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
                   ),
                 ),
                 TextFormField(
+                  cursorColor: Colors.grey,
                   controller: passController,
+
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       icon: _obscurePassword
-                          ? Icon(Icons.visibility)
-                          : Icon(Icons.visibility_off),
+                          ? Icon(Icons.visibility,color: Colors.grey,)
+                          : Icon(Icons.visibility_off,color: Colors.grey,),
                       onPressed: () {
                         setState(() {
                           _obscurePassword = !_obscurePassword;
@@ -61,6 +68,10 @@ class _SigninScreenState extends State<SigninScreen> {
                       },
                     ),
                     labelText: 'Enter Your Password',
+                    labelStyle: TextStyle(color: Colors.grey),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
                   ),
                   obscureText: _obscurePassword,
                 ),
