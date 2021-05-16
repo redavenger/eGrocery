@@ -35,7 +35,7 @@ class CartPage extends StatelessWidget {
               children: [
                 Container(
                   height: 150,
-                  width: 150,
+                  width: 145,
                   child: Image(
                     image: AssetImage('assets/images/hulas.jpg'
                     ),
@@ -45,7 +45,7 @@ class CartPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("HULAS BASMATI PREMIUM RICE 10KG", style:TextStyle(fontWeight: FontWeight.bold, fontSize: 15) ),
+                      Text("HULAS BASMATI ", style:TextStyle(fontWeight: FontWeight.bold, fontSize: 15) ),
 
                       Padding(
                         padding: const EdgeInsets.only(top:15),
@@ -59,7 +59,7 @@ class CartPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Rs. 1500", style:TextStyle( fontSize: 25)),
-                            SizedBox(width: 99,),
+                            SizedBox(width: 80,),
                             IconButton(
                               icon: Icon(
                                 Icons.delete_outline,
@@ -90,7 +90,7 @@ class CartPage extends StatelessWidget {
                 children: [
                   Container(
                     height: 150,
-                    width: 150,
+                    width: 145,
                     child: Image(
                       image: AssetImage('assets/images/MAMYPOKO.jpg'
                       ),
@@ -134,7 +134,7 @@ class CartPage extends StatelessWidget {
               ),
                 ),
             ),
-            SizedBox(height: 125,),
+            SizedBox(height: 40,),
             Container(
               decoration: BoxDecoration(
                 borderRadius: new BorderRadius.circular(10),

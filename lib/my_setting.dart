@@ -116,7 +116,7 @@ class _MySettingState extends State<MySetting> {
                     style: TextStyle(
                       fontSize: 14,
                       letterSpacing: 2.2,
-                      color: Colors.white,
+                      color: Colors.white, 
                     )),
                   ),
                 ],
