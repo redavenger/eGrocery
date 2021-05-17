@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_note/providers/product_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'cart_button.dart';
 import 'model/product.dart';
@@ -18,6 +20,7 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  bool _Wishlist = false;
   int count=1;
 
   @override
@@ -84,10 +87,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           //   style: Theme.of(context).textTheme.headline6,
                           // ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 140),
-                            child: Icon(
-                              Icons.bookmark_outline_outlined,
-                              color: Colors.orangeAccent,
+                            padding: const EdgeInsets.only(right: 5),
+                            child: IconButton(
+                              icon: (_Wishlist
+                                  ?
+                              Icon(Icons.bookmark, color: Colors.orangeAccent):
+                              Icon(Icons.bookmark_outline, color: Colors.orangeAccent)),
+                              iconSize: 40,
+                              onPressed: () {
+                                setState(
+                                      () {
+                                    Provider.of<ProductProvider>(context, listen: false).wishClick(widget.product.id);
+                                  },
+                                );
+                              },
                             ),
                           ),
                         ],
