@@ -1,21 +1,20 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_note/product_detail_screen.dart';
 import 'package:flutter_note/providers/product_provider.dart';
-import 'package:flutter_note/utils/constants.dart';
 import 'package:flutter_note/widgets/product_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'model/product.dart';
 
 class WhishlistPage extends StatelessWidget {
-
   List<Product> productList = [];
 
   @override
   Widget build(BuildContext context) {
-    productList = Provider.of<ProductProvider>(context, listen: false).filterProductByWish();
+    productList = Provider.of<ProductProvider>(context, listen: false)
+        .filterProductByWish();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -120,38 +119,46 @@ class WhishlistPage extends StatelessWidget {
       //         ),
       //       ),
       body: SingleChildScrollView(
-        child:
-        productList.isEmpty ?
-        Center(child: Column(
-          children: [
-            SizedBox(height: 300),
-            Text('Oops, there is nothing to show here !',
-              style: GoogleFonts.montserrat(
-                textStyle: TextStyle(
-                    color: Colors.blueGrey, fontSize: 15, fontWeight: FontWeight.bold),
-              ),),
-            Padding(
-              padding: const EdgeInsets.only(top:15),
-              child: Text('There are 0 items in your wishlist',
+        child: productList.isEmpty
+            ? Center(
+          child: Column(
+            children: [
+              SizedBox(height: 300),
+              Text(
+                'Add Your Favourite Product!',
                 style: GoogleFonts.montserrat(
                   textStyle: TextStyle(
-                      color: Colors.pink, fontSize: 15),
-                ),),
+                      color: Colors.blueGrey,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        )
+            : Padding(
+          padding: const EdgeInsets.all(0),
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: productList.length,
+
+            itemBuilder: (context, index) => ProductWidget(
+              itemIndex: index,
+              product: productList[index],
+              press: () {
+                Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailScreen(
+                    product: productList[index],
+                  ),
+                ),
+              );},
             ),
-          ],
-        ),)
-            :
-      Padding(
-        padding: const EdgeInsets.all(16),
-        child: StaggeredGridView.countBuilder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: productList.length,
-          crossAxisCount: 4,
-          itemBuilder: (context, index) => ProductWidget(product:productList[index]),
-          staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+
+          ),
         ),
-      ),
       ),
     );
   }

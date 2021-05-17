@@ -91,8 +91,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             child: IconButton(
                               icon: (_Wishlist
                                   ?
-                              Icon(Icons.bookmark, color: Colors.orangeAccent):
-                              Icon(Icons.bookmark_outline, color: Colors.orangeAccent)),
+                              Icon(Icons.bookmark_outline, color: Colors.orangeAccent):
+                              Icon(Icons.bookmark, color: Colors.orangeAccent)),
                               iconSize: 40,
                               onPressed: () {
                                 setState(

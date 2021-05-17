@@ -2,23 +2,21 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_note/model/ecategory.dart';
 import 'package:flutter_note/model/product.dart';
 import 'package:flutter_note/utils/constants.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
 
 class ProductProvider extends ChangeNotifier {
   List<Product> productList = [];
 
   List<String> wish = [];
 
-  void wishClick(String id){
-    if(wish.contains(id)){
+  void wishClick(String id) {
+    if (wish.contains(id)) {
       removeWish(id);
-    }else{
+    } else {
       addToWish(id);
     }
   }
@@ -30,7 +28,7 @@ class ProductProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeWish(String id) async{
+  void removeWish(String id) async {
     Fluttertoast.showToast(
         msg: "Item removed from WishList",
         toastLength: Toast.LENGTH_SHORT,
@@ -38,25 +36,7 @@ class ProductProvider extends ChangeNotifier {
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.blueGrey,
         textColor: Colors.white,
-        fontSize: 16.0
-    );
-    wish.add(id);
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('wish', wish);
-    wish = wish.toSet().toList();
-    notifyListeners();
-  }
-
-  void addToWish(String id) async{
-    Fluttertoast.showToast(
-        msg: "Item added to wishList",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.blueGrey,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+        fontSize: 16.0);
     wish.remove(id);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('wish', wish);
@@ -64,9 +44,26 @@ class ProductProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool isWish(String id){
-    for(var fav in wish){
-      if(fav == id){
+  void addToWish(String id) async {
+    Fluttertoast.showToast(
+        msg: "Item added to wishList",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.blueGrey,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    wish.add(id);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('wish', wish);
+    wish = wish.toSet().toList();
+    print(wish.toString());
+    notifyListeners();
+  }
+
+  bool isWish(String id) {
+    for (var fav in wish) {
+      if (fav == id) {
         return true;
       }
     }
@@ -75,6 +72,7 @@ class ProductProvider extends ChangeNotifier {
 
   List<Product> filterProductByWish() {
     List<Product> filteredProduct = [];
+    print(wish.toString());
     productList.forEach((product) {
       wish.forEach((element) {
         if (product.id == element) {
@@ -86,22 +84,23 @@ class ProductProvider extends ChangeNotifier {
   }
 
   void fetchProduct() async {
+    fetchWishList();
     productList = [];
     var url = '$READ_PRODUCT_URL';
     var response = await http.get(url);
-     var result = jsonDecode(response.body);
+    var result = jsonDecode(response.body);
 
-     result.forEach((c){
-       var product = Product.fromJson(c);
-       productList.add(product);
-     });
-     notifyListeners();
+    result.forEach((c) {
+      var product = Product.fromJson(c);
+      productList.add(product);
+    });
+    notifyListeners();
   }
 
-  List<Product> filterProductList(String query){
+  List<Product> filterProductList(String query) {
     List<Product> filteredProductList = [];
     productList.forEach((product) {
-      if (product.name.toLowerCase().contains(query.toLowerCase())){
+      if (product.name.toLowerCase().contains(query.toLowerCase())) {
         filteredProductList.add(product);
       }
     });
@@ -109,10 +108,10 @@ class ProductProvider extends ChangeNotifier {
     return filteredProductList;
   }
 
-  List<Product> filterProductByCategory(String category){
+  List<Product> filterProductByCategory(String category) {
     List<Product> filteredProductList = [];
     productList.forEach((product) {
-      if (product.cName.toLowerCase() == category.toLowerCase()){
+      if (product.cName.toLowerCase() == category.toLowerCase()) {
         filteredProductList.add(product);
       }
     });

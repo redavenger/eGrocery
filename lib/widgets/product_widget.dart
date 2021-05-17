@@ -101,22 +101,22 @@ class ProductWidget extends StatelessWidget {
                             style: Theme.of(context).textTheme.button,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.lightGreenAccent,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(22),
-                                topRight: Radius.circular(22),
-                              ),
-                            ),
-                            child: Icon(
-                              Icons.shopping_cart_outlined,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(left: 15),
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //       color: Colors.lightGreenAccent,
+                        //       borderRadius: BorderRadius.only(
+                        //         bottomLeft: Radius.circular(22),
+                        //         topRight: Radius.circular(22),
+                        //       ),
+                        //     ),
+                        //     child: Icon(
+                        //       Icons.shopping_cart_outlined,
+                        //       color: Colors.black,
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],
