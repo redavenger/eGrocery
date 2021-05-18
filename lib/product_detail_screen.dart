@@ -26,6 +26,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     // it provide us total height and width
+    _Wishlist = Provider.of<ProductProvider>(context, listen: true).isWish(widget.product.id);
     Size size = MediaQuery.of(context).size;
     // it enable scrolling on small devices
     return Scaffold(
@@ -87,12 +88,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           //   style: Theme.of(context).textTheme.headline6,
                           // ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 5),
+                            padding: const EdgeInsets.only(right: 30),
                             child: IconButton(
                               icon: (_Wishlist
                                   ?
-                              Icon(Icons.bookmark_outline, color: Colors.orangeAccent):
-                              Icon(Icons.bookmark, color: Colors.orangeAccent)),
+                              Icon(Icons.bookmark, color: Colors.pink):
+                              Icon(Icons.bookmark_outline_outlined, color: Colors.pink)),
                               iconSize: 40,
                               onPressed: () {
                                 setState(
