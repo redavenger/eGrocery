@@ -42,6 +42,9 @@ dependencies:
   dialogs:
   fluttertoast: ^7.1.6
   google_fonts: ^1.1.1
+  flutter_slidable: ^0.5.7
+  modal_bottom_sheet: ^1.0.0+1
+
 
 dev_dependencies:
   flutter_test:

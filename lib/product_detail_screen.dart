@@ -9,9 +9,7 @@ import 'model/product.dart';
 import 'utils/constants.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-
   Product product;
-
 
   ProductDetailScreen({this.product});
 
@@ -21,12 +19,13 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   bool _Wishlist = false;
-  int count=1;
+  int count = 1;
 
   @override
   Widget build(BuildContext context) {
     // it provide us total height and width
-    _Wishlist = Provider.of<ProductProvider>(context, listen: true).isWish(widget.product.id);
+    _Wishlist = Provider.of<ProductProvider>(context, listen: true)
+        .isWish(widget.product.id);
     Size size = MediaQuery.of(context).size;
     // it enable scrolling on small devices
     return Scaffold(
@@ -39,8 +38,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(20),
-            )),
+          bottom: Radius.circular(20),
+        )),
       ),
       body: SafeArea(
         bottom: false,
@@ -91,14 +90,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             padding: const EdgeInsets.only(right: 30),
                             child: IconButton(
                               icon: (_Wishlist
-                                  ?
-                              Icon(Icons.bookmark, color: Colors.orangeAccent):
-                              Icon(Icons.bookmark_outline_outlined, color: Colors.orangeAccent)),
+                                  ? Icon(Icons.bookmark,
+                                      color: Colors.orangeAccent)
+                                  : Icon(Icons.bookmark_outline_outlined,
+                                      color: Colors.orangeAccent)),
                               iconSize: 40,
                               onPressed: () {
                                 setState(
-                                      () {
-                                    Provider.of<ProductProvider>(context, listen: false).wishClick(widget.product.id);
+                                  () {
+                                    Provider.of<ProductProvider>(context,
+                                            listen: false)
+                                        .wishClick(widget.product.id);
                                   },
                                 );
                               },
@@ -120,18 +122,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         Spacer(),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: IconButton(icon: Icon(
-                            Icons.remove,
-                            color: Colors.black,
-                          ),
-                            onPressed: (){
-                            if (count>1){
-                              setState(() {
-                                count= count-1;
-                              });
-                            }
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.remove,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              if (count > 1) {
+                                setState(() {
+                                  count = count - 1;
+                                });
+                              }
                             },
-                        ),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -142,14 +145,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: IconButton(icon: Icon(
-                            Icons.add,
-                            color: Colors.black,
-                          ),
-                            onPressed: (){
-                              if (count<50){
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              if (count < 50) {
                                 setState(() {
-                                  count= count+1;
+                                  count = count + 1;
                                 });
                               }
                             },
@@ -159,7 +163,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                     Padding(
                       padding:
-                      EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
+                          EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
                       child: Text(
                         widget.product.description,
                         style: TextStyle(color: kTextLightColor),
@@ -169,7 +173,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ],
                 ),
               ),
-              CartButton(),
+              CartButton(
+                product: widget.product,
+              ),
             ],
           ),
         ),
@@ -177,8 +183,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 }
-
-
 
 class ProductPoster extends StatelessWidget {
   const ProductPoster({

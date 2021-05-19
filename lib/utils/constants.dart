@@ -7,9 +7,7 @@ const String LOGIN_URL = "$BASE_URL/login.php";
 const String ADD_NOTE_URL = "$BASE_URL/add_note.php";
 const String READ_CATEGORY_URL = "$BASE_URL/read_category.php";
 const String READ_PRODUCT_URL = "$BASE_URL/read_product.php";
-const String READ_CART_URL = "$BASE_URL/read_cart.php";
-
-
+const String ADD_CART_URL = "$BASE_URL/cart.php";
 
 // list of colors that we use in our app
 const kBackgroundColor = Color(0xFFF1EFF1);

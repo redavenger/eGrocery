@@ -35,12 +35,17 @@ class _CartButtonState extends State<CartButton> {
           FlatButton.icon(
             onPressed: () {
               addToCart();
-              Toast.show("Your item has been added to cart successfully!", context,backgroundColor: Colors.orangeAccent,
+              Toast.show(
+                  "Your item has been added to cart successfully!", context,
+                  backgroundColor: Colors.orangeAccent,
                   textColor: Colors.black,
                   duration: Toast.LENGTH_LONG,
-                  gravity:  Toast.CENTER);
+                  gravity: Toast.CENTER);
             },
-            icon: Icon(Icons.shopping_bag_outlined, color: Colors.white,),
+            icon: Icon(
+              Icons.shopping_bag_outlined,
+              color: Colors.white,
+            ),
             label: Text(
               "Add to Cart",
               style: TextStyle(color: Colors.white),
@@ -52,10 +57,13 @@ class _CartButtonState extends State<CartButton> {
   }
 
   void addToCart() {
-    groceryCart cart= groceryCart(productName:widget.product.name,image: widget.product.image,
-      email: Provider.of<UserAuthProvider>(context, listen: false).email,price: widget.product.price,
+    GroceryCart cart = GroceryCart(
+      productName: widget.product.name,
+      image: widget.product.image,
+      email: Provider.of<UserAuthProvider>(context, listen: false).email,
+      price: widget.product.price,
       quantity: counter.toString(),
     );
-    Provider.of<CartProvider>(context,listen: false).addToCart(cart);
+    Provider.of<CartProvider>(context, listen: false).addToCart(cart);
   }
 }

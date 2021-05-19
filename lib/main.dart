@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_note/category_detail.dart';
+import 'package:flutter_note/providers/cart_provider.dart';
 import 'package:flutter_note/providers/category_provider.dart';
 import 'package:flutter_note/providers/product_provider.dart';
 import 'package:flutter_note/providers/user_auth_provider.dart';
@@ -7,12 +7,12 @@ import 'package:provider/provider.dart';
 
 import 'bottom_navigation_bar.dart';
 import 'home_page.dart';
+import 'image_slider.dart';
 import 'my_order.dart';
 import 'my_setting.dart';
 import 'sign_in.dart';
 import 'signup_screen.dart';
 import 'splash_screen.dart';
-import 'image_slider.dart';
 
 void main() => runApp(
       MultiProvider(
@@ -20,6 +20,7 @@ void main() => runApp(
           ChangeNotifierProvider.value(value: UserAuthProvider()),
           ChangeNotifierProvider.value(value: CategoryProvider()),
           ChangeNotifierProvider.value(value: ProductProvider()),
+          ChangeNotifierProvider.value(value: CartProvider()),
         ],
         child: MyApp(),
       ),
@@ -28,9 +29,9 @@ void main() => runApp(
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provider.of<UserAuthProvider>(context,listen:false).getEmail();
-    Provider.of<CategoryProvider>(context,listen:false).fetchCategory();
-    Provider.of<ProductProvider>(context,listen:false).fetchProduct();
+    Provider.of<UserAuthProvider>(context, listen: false).getEmail();
+    Provider.of<CategoryProvider>(context, listen: false).fetchCategory();
+    Provider.of<ProductProvider>(context, listen: false).fetchProduct();
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.white),
       routes: <String, WidgetBuilder>{

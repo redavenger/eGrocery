@@ -1,4 +1,4 @@
-class groceryCart {
+class GroceryCart {
   String id;
   String productName;
   String price;
@@ -7,16 +7,16 @@ class groceryCart {
   String email;
   String image;
 
-  groceryCart(
+  GroceryCart(
       {this.id,
-        this.productName,
-        this.price,
-        this.quantity,
-        this.size,
-        this.email,
-        this.image});
+      this.productName,
+      this.price,
+      this.quantity,
+      this.size,
+      this.email,
+      this.image});
 
-  groceryCart.fromJson(Map<String, dynamic> json) {
+  GroceryCart.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     productName = json['product_name'];
     price = json['price'];

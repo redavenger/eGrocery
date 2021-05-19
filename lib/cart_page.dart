@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_note/providers/cart_provider.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_note/model/cart.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-import 'package:toast/toast.dart';
 
-import 'model/cart.dart';
+import 'providers/cart_provider.dart';
+import 'utils/constants.dart';
+import 'widgets/cart_widget.dart';
 
 class CartPage extends StatefulWidget {
   @override
@@ -13,26 +18,46 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  var phoneController = TextEditingController();
+  var deliveryAddressController = TextEditingController();
+  List<GroceryCart> cartItems = [];
+  int selectedRadio;
+  var phone;
+  var deliveryAddress;
 
-  List<groceryCart> cartItems = [];
   final _globalKeyScaffold = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    cartItems = Provider.of<CartProvider>(context, listen: true).cartList;
     return Scaffold(
+      key: _globalKeyScaffold,
       appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: Text(
-          'My Cart',
-          style: TextStyle(fontSize: 20, color: Colors.black),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.pink),
+        title: Center(
+          child: Text(
+            'My Cart',
+            style: GoogleFonts.greatVibes(
+              textStyle: TextStyle(
+                  color: Colors.pink,
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
         ),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(20),
-        )
-        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+            child: IconButton(
+                icon: Icon(Icons.favorite_outline_sharp),
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, 'wishList');
+                }),
+          ),
+        ],
       ),
-
       bottomNavigationBar: Container(
         height: 120,
         child: Column(
@@ -49,7 +74,7 @@ class _CartPageState extends State<CartPage> {
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: Text(
-                          'TOTAL AMOUNT:',
+                          'Products Total:',
                           style: TextStyle(
                               color: Colors.pink,
                               fontSize: 30,
@@ -72,197 +97,42 @@ class _CartPageState extends State<CartPage> {
                 color: Colors.white,
                 width: 450,
                 height: 60,
-                child: placeOrderButton()),
+                child: checkOutButton()),
           ],
         ),
       ),
-
-      // body: Padding(
-      //   padding: const EdgeInsets.only(left:8.0,right: 8.0, top: 15, bottom: 8),
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.start,
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: [
-      //       Container(
-      //       decoration: BoxDecoration(
-      //         borderRadius: new BorderRadius.circular(10),
-      //         color: Colors.lightGreen,
-      //       ),
-      //       child: Row(
-      //         crossAxisAlignment: CrossAxisAlignment.start,
-      //         children: [
-      //           Container(
-      //             height: 150,
-      //             width: 145,
-      //             child: Image(
-      //               image: AssetImage('assets/images/hulas.jpg'
-      //               ),
-      //             ),
-      //           ), Padding(
-      //             padding: const EdgeInsets.only(top:25.0),
-      //             child: Column(
-      //               crossAxisAlignment: CrossAxisAlignment.start,
-      //               children: [
-      //                 Text("HULAS BASMATI ", style:TextStyle(fontWeight: FontWeight.bold, fontSize: 15) ),
-      //
-      //                 Padding(
-      //                   padding: const EdgeInsets.only(top:15),
-      //                   child: Text("Quantity : 2", style:TextStyle( fontSize: 15)),
-      //                 ),
-      //
-      //                 Padding(
-      //                   padding: const EdgeInsets.only(top:30),
-      //                   child: Row(
-      //
-      //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                     children: [
-      //                       Text("Rs. 1500", style:TextStyle( fontSize: 25)),
-      //                       SizedBox(width: 80,),
-      //                       IconButton(
-      //                         icon: Icon(
-      //                           Icons.delete_outline,
-      //                           color: Colors.black,
-      //                         ),
-      //                         onPressed: () {
-      //                           print('delete');
-      //                         },
-      //                       )
-      //                     ],
-      //                   ),
-      //                 ),
-      //               ],
-      //             ),
-      //           )
-      //         ],
-      //       ),
-      //         ),
-      //       Padding(
-      //         padding: const EdgeInsets.only(top:10),
-      //         child: Container(
-      //         decoration: BoxDecoration(
-      //           borderRadius: new BorderRadius.circular(10),
-      //           color: Colors.lightGreen,
-      //         ),
-      //         child: Row(
-      //           crossAxisAlignment: CrossAxisAlignment.start,
-      //           children: [
-      //             Container(
-      //               height: 150,
-      //               width: 145,
-      //               child: Image(
-      //                 image: AssetImage('assets/images/MAMYPOKO.jpg'
-      //                 ),
-      //               ),
-      //             ), Padding(
-      //               padding: const EdgeInsets.only(top:25.0),
-      //               child: Column(
-      //                 crossAxisAlignment: CrossAxisAlignment.start,
-      //                 children: [
-      //                   Text("MAMY POKO PANTS S 08'S", style:TextStyle(fontWeight: FontWeight.bold, fontSize: 15) ),
-      //
-      //                   Padding(
-      //                     padding: const EdgeInsets.only(top:15),
-      //                     child: Text("Quantity : 1", style:TextStyle( fontSize: 15)),
-      //                   ),
-      //
-      //                   Padding(
-      //                     padding: const EdgeInsets.only(top:30),
-      //                     child: Row(
-      //
-      //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                       children: [
-      //                         Text("Rs. 150", style:TextStyle( fontSize: 25)),
-      //                         SizedBox(width: 99,),
-      //                         IconButton(
-      //                           icon: Icon(
-      //                             Icons.delete_outline,
-      //                             color: Colors.black,
-      //                           ),
-      //                           onPressed: () {
-      //                             print('delete');
-      //                           },
-      //                         )
-      //                       ],
-      //                     ),
-      //                   ),
-      //                 ],
-      //               ),
-      //             )
-      //           ],
-      //         ),
-      //           ),
-      //       ),
-      //       SizedBox(height: 40,),
-      //       Column(
-      //         children: [
-      //           Container(
-      //             decoration: BoxDecoration(
-      //               borderRadius: new BorderRadius.circular(10),
-      //               color: Colors.black12,
-      //             ),
-      //             child: Column(
-      //               mainAxisAlignment: MainAxisAlignment.start,
-      //             crossAxisAlignment: CrossAxisAlignment.start,
-      //             children: [
-      //               Padding(
-      //                 padding: const EdgeInsets.all(8.0),
-      //                 child: Text("Billing Details:",style:TextStyle( fontSize: 25,fontWeight: FontWeight.bold)),
-      //               ),
-      //               Padding(
-      //                 padding: const EdgeInsets.all(8.0),
-      //                 child: Row(
-      //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                   children: [
-      //                     Text('Order:',style:TextStyle( fontSize: 25)),
-      //                     Text('Rs. 3150',style:TextStyle( fontSize: 25,fontWeight: FontWeight.bold))
-      //                   ],
-      //                 ),
-      //               ),
-      //               Padding(
-      //                 padding: const EdgeInsets.all(8.0),
-      //                 child: Row(
-      //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                   children: [
-      //                     Text('Shipping:',style:TextStyle( fontSize: 25)),
-      //                     Text('Rs. 100',style:TextStyle( fontSize: 25,fontWeight: FontWeight.bold))
-      //                   ],
-      //                 ),
-      //               ),
-      //               Padding(
-      //                 padding: const EdgeInsets.all(8.0),
-      //                 child: Row(
-      //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                   children: [
-      //                     Text('TOTAL:',style:TextStyle( fontSize: 25)),
-      //                     Text('Rs. 3250',style:TextStyle( fontSize: 25,fontWeight: FontWeight.bold))
-      //                   ],
-      //                 ),
-      //               ),
-      //
-      //             ],
-      //           ),),
-      //         ],
-      //       ),
-      //       SizedBox(height: 25,),
-      //       Container(
-      //         decoration: BoxDecoration(
-      //           color: Colors.orangeAccent,
-      //           borderRadius: new BorderRadius.circular(16.0),
-      //         ),
-      //         height: 50,
-      //         width: 390,
-      //         child: FlatButton(
-      //           child: Text("Place Order",style:TextStyle(color:Colors.black,fontWeight: FontWeight.bold, fontSize: 25)),
-      //           onPressed:(){Toast.show("Order Placed Successfully!", context,backgroundColor: Colors.orangeAccent,
-      //               textColor: Colors.black, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);} ,),
-      //       )
-      //     ],
-      //   ),
-      // ),
+      body: cartItems.isNotEmpty
+          ? ListView.builder(
+              itemCount: cartItems.length,
+              itemBuilder: (BuildContext ctxt, int index) {
+                return CartWidget(cartItems[index]);
+              })
+          : Center(
+              child: Opacity(
+              opacity: 0.75,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image(
+                    image: AssetImage('assets/gif/1.gif'),
+                    height: 125,
+                  ),
+                  Text(
+                    "No items in your cart !!!",
+                    style: GoogleFonts.raleway(
+                      textStyle: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            )),
     );
   }
 
-  Widget placeOrderButton() {
+  Widget checkOutButton() {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
       child: FlatButton(
@@ -277,13 +147,134 @@ class _CartPageState extends State<CartPage> {
         ),
         onPressed: () {
           cartItems.isNotEmpty
-              ? displayCheckOutDetails()
-              : displayNoitem();
+              ? displayCheckOutDetailsOption()
+              : displayNoOption();
         },
       ),
     );
   }
-  void displayNoitem() {
+
+  void displayCheckOutDetailsOption() {
+    showMaterialModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        height: 270,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Fill up the form to confirm your order:',
+                            style: GoogleFonts.montserrat(
+                              textStyle: TextStyle(
+                                color: Colors.blueGrey,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            icon: (Icon(
+                              Icons.clear,
+                              color: Colors.pink,
+                              size: 30,
+                            )),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    style: GoogleFonts.montserrat(
+                      textStyle: TextStyle(
+                        color: Colors.blueGrey,
+                        fontSize: 20,
+                      ),
+                    ),
+                    controller: phoneController,
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.phone),
+                        labelText: 'Phone Number',
+                        fillColor: Colors.pink),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: TextField(
+                      style: GoogleFonts.montserrat(
+                        textStyle: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 20,
+                        ),
+                      ),
+                      controller: deliveryAddressController,
+                      decoration: InputDecoration(
+                          icon: Icon(Icons.location_pin),
+                          labelText: 'Delivery Address',
+                          fillColor: Colors.pink),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15.0, left: 30),
+                    child: Container(
+                      width: 335,
+                      decoration: BoxDecoration(
+                          color: Colors.pink,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: FlatButton(
+                        onPressed: () {
+                          phone = phoneController.text;
+                          deliveryAddress = deliveryAddressController.text;
+                          if (phoneController.text.isEmpty ||
+                              deliveryAddressController.text.isEmpty ||
+                              phoneController.text.length != 10) {
+                            Fluttertoast.showToast(
+                                msg: "Data Incorrect/Invalid!!!",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.blueGrey,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                          } else {
+                            addCart();
+
+                            // Navigator.pop(context);
+                          }
+                        },
+                        child: Text(
+                          'Confirm',
+                          style: GoogleFonts.raleway(
+                            textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void displayNoOption() {
     showSnackBar("No items to check out !!!");
   }
 
@@ -301,7 +292,18 @@ class _CartPageState extends State<CartPage> {
     _globalKeyScaffold.currentState.showSnackBar(snackBar);
   }
 
-  void displayCheckOutDetails() {
-
+  void addCart() async {
+    cartItems.forEach((e) async {
+      var url =
+          "$ADD_CART_URL?product_name=${e.productName}&price=${e.price}&size=${e.size}&quantity=${e.quantity}&email=${e.email}&image=${e.image}&phone_number=$phone&delivery_address=$deliveryAddress";
+      var response = await http.get(url);
+      print(url);
+      print(response.body.toString());
+      if (response.body.toLowerCase().contains('success')) {
+        Provider.of<CartProvider>(context, listen: false).removeFromCart(e);
+      }
+    });
+    Navigator.pop(context);
+    // Navigator.pop(context);
   }
 }
