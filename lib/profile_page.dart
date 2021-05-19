@@ -100,7 +100,7 @@ class ProfilePage extends StatelessWidget {
                 ),
                 child: ListTile(
                     leading: Icon(
-                      Icons.star_border,
+                      Icons.my_library_books_outlined,
                       color: Colors.green,
                     ),
                     trailing: Icon(
@@ -108,7 +108,7 @@ class ProfilePage extends StatelessWidget {
                       color: Colors.green,
                     ),
                     title: Text(
-                      "My order",
+                      "About us",
                     ),
                     onTap:() {Navigator.pushNamed(context, 'order');}
                 ),

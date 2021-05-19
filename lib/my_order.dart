@@ -15,13 +15,33 @@ class MyOrder extends StatelessWidget {
               bottom: Radius.circular(20),
             )),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('This is my order page'),
-        ],
-      ),
+      body: Container(
+    child: Container(
+    decoration: BoxDecoration(
+    image: DecorationImage(
+    image: AssetImage('assets/images/background3.jpg'),
+    fit: BoxFit.cover,
+    ),
+    ),
+        child: Column(
 
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('e-Grocery', style:
+            TextStyle(fontSize: 40, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+            Text(''),
+            Text('Spare more with ‘e-Grocery’ ! We give you the most minimal costs on the entirety of your grocery needs.',
+              style: TextStyle(fontSize: 15, color: Colors.black),textAlign: TextAlign.center),
+            Text(''),
+            Text('e-Grocery is a low-cost online general store that gets items crosswise over classifications like grocery, natural products and vegetables, excellence and health, family unit care, infant care, pet consideration and meats and fish conveyed to your doorstep.',
+              style: TextStyle(fontSize: 15, color: Colors.black),textAlign: TextAlign.center),
+            Text(''),
+            Text('Browse more than 5,000 items at costs lower than markets each day!',
+              style: TextStyle(fontSize: 15, color: Colors.black),textAlign: TextAlign.center),
+          ],
+        ),
+      ),
+      )
     );
   }
 }
